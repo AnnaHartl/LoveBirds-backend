@@ -15,7 +15,6 @@ public class AnswerResource {
     @Inject
     AnswerRepository answerRepository;
 
-//test
     @GET
     @Path("/{questionId}")
     public List<Answer> getAnswersForQuestion(@PathParam("questionId") Long questionId){
