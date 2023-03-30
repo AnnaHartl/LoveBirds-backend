@@ -32,7 +32,7 @@ public class QuestionResource {
 
     @GET
     @Path("/{personId}")
-    public List<Question> getQuestions(@PathParam("personId") Long personId){
+    public List<Question> getQuestions(@PathParam("personId") Long personId) {
         //prüfen ob die person schon 3 Fragen beantwortet hat
         // prüfen ob die Person die erste des Paares ist und fragen anfordert
         // auch das aus jeder Categorie a bisi was dabei ist
@@ -42,7 +42,7 @@ public class QuestionResource {
         List<Question> questions = new ArrayList<>();
 
         //Das Kontingent wurde erfüllt
-        if(count == 3){
+        if (count == 3) {
             return questions;
         }
 
@@ -58,7 +58,7 @@ public class QuestionResource {
         System.out.println(ownQuestions.size());
         System.out.println(partnerQuestions.size());
 
-        if(partnerQuestions.size() > ownQuestions.size() ){
+        if (partnerQuestions.size() > ownQuestions.size()) {
             //so hat mehr fragen beantwortet
             return getDifferenceOfQuestions(ownQuestions, partnerQuestions);
         }
@@ -81,7 +81,7 @@ public class QuestionResource {
         Random random = new Random();
 
 
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             int index = random.nextInt(all.size());
             questions.add(all.get(index));
         }
@@ -90,19 +90,21 @@ public class QuestionResource {
 
     @GET
     @Path("anseredQuestions/{personId}")
-    public List<AnsweredQuestion> getSameAnsweredQuestions(@PathParam("personId") Long personId){
+    public List<AnsweredQuestion> getSameAnsweredQuestions(@PathParam("personId") Long personId) {
         //alle gleiche Fragen zurück
         // villeicht bei  der App zwischen alter und neuer Liste unterscheiden
-        return null;
+        Person own = personRepository.findById(personId);
+        Person match = personRepository.getMatch(own);
+        return answeredQuestionRepository.getAllAnsweredQuestions(own, match);
     }
 
     @GET
     @Path("setup")
     @Transactional
-    public void setUp(){
+    public void setUp() {
         Question q1 = new Question("Would you rather go to the theater or the movies as a couple?", Category.RECREATION);
-        Answer a1 = new Answer("Theater",q1);
-        Answer a2 = new Answer("Movies",q1);
+        Answer a1 = new Answer("Theater", q1);
+        Answer a2 = new Answer("Movies", q1);
         questionRepository.persist(q1);
         answerRepository.persist(a1);
         answerRepository.persist(a2);
@@ -151,7 +153,7 @@ public class QuestionResource {
     @GET
     @Path("tearDown")
     @Transactional
-    public void tearDown(){
+    public void tearDown() {
         answeredQuestionRepository.deleteAll();
         answerRepository.deleteAll();
         questionRepository.deleteAll();

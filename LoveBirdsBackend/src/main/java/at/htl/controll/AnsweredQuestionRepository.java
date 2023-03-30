@@ -31,4 +31,11 @@ public class AnsweredQuestionRepository implements PanacheRepository<AnsweredQue
                 .setParameter("id", person.id);
         return query.getResultList();
     }
+
+    public List<AnsweredQuestion> getAllAnsweredQuestions(Person own, Person match) {
+        TypedQuery<AnsweredQuestion> query = em.createQuery("select aq from AnsweredQuestion aq where aq.person.id = :ownId or aq.person.id = :matchId", AnsweredQuestion.class)
+                .setParameter("ownId", own.id)
+                .setParameter("matchId", match.id);
+        return query.getResultList();
+    }
 }
