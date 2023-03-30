@@ -39,6 +39,8 @@ public class AnswerResource {
         //zur Assotiationstablle anfügen
 
         AnsweredQuestion a = new AnsweredQuestion();
+        if(answerRepository.findById(answerId) == null || personRepository.findById(personId) == null)
+            return;
         a.answer = answerRepository.findById(answerId);
         a.person = personRepository.findById(personId);
         a.dateAnswered = LocalDate.now();
