@@ -42,6 +42,13 @@ public class PersonResource {
     }
 
     @GET
+    @Path("/delete")
+    @Transactional
+    public void deleteAll(){
+        personRepository.deleteAll();
+    }
+
+    @GET
     @Path("getMatch/{personId}")
     public Person createPerson(@PathParam("personId") Long personId){
         Person p = personRepository.findById(personId);

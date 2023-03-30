@@ -18,6 +18,7 @@ import java.util.Random;
 
 @Path("questions")
 public class QuestionResource {
+    private static final int QUESTION_COUNT = 1;
     @Inject
     QuestionRepository questionRepository;
 
@@ -42,7 +43,7 @@ public class QuestionResource {
         List<Question> questions = new ArrayList<>();
 
         //Das Kontingent wurde erfüllt
-        if (count == 3) {
+        if (count == QUESTION_COUNT) {
             return questions;
         }
 
@@ -81,7 +82,7 @@ public class QuestionResource {
         Random random = new Random();
 
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < QUESTION_COUNT; i++) {
             int index = random.nextInt(all.size());
             questions.add(all.get(index));
         }
