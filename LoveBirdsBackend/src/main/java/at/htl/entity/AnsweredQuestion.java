@@ -1,6 +1,7 @@
 package at.htl.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -17,5 +18,5 @@ public class AnsweredQuestion {
     @ManyToOne
     public Person person;
 
-    public Date dateAnswered;
+    public LocalDate dateAnswered;
 }
