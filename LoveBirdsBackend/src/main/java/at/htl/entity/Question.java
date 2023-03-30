@@ -15,4 +15,12 @@ public class Question {
 
     @Column(name = "Q_Category")
     public Category category;
+
+    public Question(String questionText, Category category) {
+        this.questionText = questionText;
+        this.category = category;
+    }
+
+    public Question() {
+    }
 }

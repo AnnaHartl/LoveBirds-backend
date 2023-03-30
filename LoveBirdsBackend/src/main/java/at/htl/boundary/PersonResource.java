@@ -40,6 +40,14 @@ public class PersonResource {
         return p;
     }
 
+    @GET
+    @Path("getMatch/{personId}")
+    public Person createPerson(@PathParam("personId") Long personId){
+        Person p = personRepository.findById(personId);
+
+        return personRepository.getMatch(p);
+    }
+
     public String generateString(){
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuilder sb = new StringBuilder();
