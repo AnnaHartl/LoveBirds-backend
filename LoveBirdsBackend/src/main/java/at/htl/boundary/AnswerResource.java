@@ -33,18 +33,25 @@ public class AnswerResource {
     }
 
     @GET
+    @Path("/all")
+    public List<Answer> getAll(){
+        return answerRepository.listAll();
+    }
+    @GET
     @Transactional
     @Path("/answerQuestion/{personId}/{answerId}")
-    public void answerQuestion(@PathParam("personId") Long personId,@PathParam("answerId") Long answerId){
+    public String answerQuestion(@PathParam("personId") Long personId,@PathParam("answerId") Long answerId){
         //zur Assotiationstablle anfügen
 
         AnsweredQuestion a = new AnsweredQuestion();
         if(answerRepository.findById(answerId) == null || personRepository.findById(personId) == null)
-            return;
+            return "falsch gelaufen";
+
         a.answer = answerRepository.findById(answerId);
         a.person = personRepository.findById(personId);
         a.dateAnswered = LocalDate.now();
         answeredQuestionRepository.persist(a);
+        return "alles gut";
         
     }
 }

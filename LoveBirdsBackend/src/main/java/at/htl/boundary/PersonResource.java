@@ -50,7 +50,7 @@ public class PersonResource {
     }
 
     @GET
-    @Path("getAll")
+    @Path("/all")
     public List<Person> getAll(){
         return personRepository.listAll();
     }
