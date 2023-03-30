@@ -99,6 +99,19 @@ public class QuestionResource {
     }
 
     @GET
+    @Path("all")
+    public List<Question> getAll() {
+        return questionRepository.listAll();
+    }
+
+
+    @GET
+    @Path("getAllAnsweredQuestions")
+    public List<AnsweredQuestion> getAllAnsQuestion() {
+        return answeredQuestionRepository.listAll();
+    }
+
+    @GET
     @Path("setup")
     @Transactional
     public void setUp() {

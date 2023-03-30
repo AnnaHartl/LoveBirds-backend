@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -46,6 +47,12 @@ public class PersonResource {
         Person p = personRepository.findById(personId);
 
         return personRepository.getMatch(p);
+    }
+
+    @GET
+    @Path("getAll")
+    public List<Person> getAll(){
+        return personRepository.listAll();
     }
 
     public String generateString(){
